@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import './styles.css'
 
 function App() {
 	const [email, setEmail] = useState('')
@@ -30,7 +32,7 @@ function App() {
 	}
 
 	return (
-		<div>
+		<div className="container">
 			<h1>Login</h1>
 			<form onSubmit={loginUser}>
 				<input
@@ -49,6 +51,9 @@ function App() {
 				<br />
 				<input type="submit" value="Login" />
 			</form>
+			<Link to="/register">
+				<button className="link-button">Register</button>
+			</Link>
 		</div>
 	)
 }

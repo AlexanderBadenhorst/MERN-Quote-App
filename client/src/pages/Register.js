@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
+import './styles.css'
 
 function App() {
 	const history = useHistory()
@@ -31,7 +32,7 @@ function App() {
 	}
 
 	return (
-		<div>
+		<div className="container">
 			<h1>Register</h1>
 			<form onSubmit={registerUser}>
 				<input
@@ -57,6 +58,9 @@ function App() {
 				<br />
 				<input type="submit" value="Register" />
 			</form>
+			<Link to="/login">
+				<button className="link-button">Login</button>
+			</Link>
 		</div>
 	)
 }

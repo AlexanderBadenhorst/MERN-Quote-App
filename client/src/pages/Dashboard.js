@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import jwt from 'jsonwebtoken'
 import { useHistory } from 'react-router-dom'
+import './styles.css'
 
 const Dashboard = () => {
 	const history = useHistory()
@@ -58,8 +59,32 @@ const Dashboard = () => {
 		}
 	}
 
+	async function clearQuote(event) {
+		event.preventDefault()
+
+		const req = await fetch('http://localhost:1337/api/quote', {
+			method: 'DELETE',
+			headers: {
+				'Content-Type': 'application/json',
+				'x-access-token': localStorage.getItem('token'),
+			},
+		})
+
+		const data = await req.json()
+		if (data.status === 'ok') {
+			setQuote('')
+		} else {
+			alert(data.error)
+		}
+	}
+
+	function logout() {
+		localStorage.removeItem('token')
+		history.push('/')
+	}
+
 	return (
-		<div>
+		<div className="container">
 			<h1>Your quote: {quote || 'No quote found'}</h1>
 			<form onSubmit={updateQuote}>
 				<input
@@ -70,6 +95,8 @@ const Dashboard = () => {
 				/>
 				<input type="submit" value="Update quote" />
 			</form>
+			<button onClick={clearQuote}>Clear quote</button>
+			<button onClick={logout} className="link-button">Logout</button>
 		</div>
 	)
 }
